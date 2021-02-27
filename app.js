@@ -4,7 +4,7 @@ const path = require("path");
 const app = express();
 const { Fruits, Auth } = require("./model");
 
-const port = 80;
+const port = 3000;
 app.use(session({ secret: '0084A32228A94AC63F990E7443B49E28' }));
 app.use(express.json());
 
