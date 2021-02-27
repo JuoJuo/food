@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Foods</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Foods</title>
+</head>
+<body>
+<div id="app">
+  <div class="input-container" v-if="!authUser">
+    <input type="text" v-model="username">
+    <input type="password" v-model="password">
+    <button class="btn btn-lan" @click="login">Login</button>
+  </div>
+  <div v-else style="line-height: 50px" class="clear">
+    <span class="fr">Welcome, {{ authUser.username }}!</span>
+  </div>
+  <div class="relative">
+    <h1 class="abs title">Natural And Green</h1>
+    <img src="./img/banner.png" alt="banner">
+  </div>
+
+  <section>
+    <div class="lht">
+      <p>Eating fruit on a regular basis can boost health.</p>
+
+      <p>However, not all fruits are created equal. Some of them provide unique health benefits.</p>
+
+      <p>Here are the 20 healthiest fruits on earth.</p>
+    </div>
+
+    <h1 class="mt-45 mb-15">Apples</h1>
+    <p class="lht">
+      Apples are among the most popular fruits, and also happen to be incredibly nutritious.
+
+      They contain a high amount of fiber, vitamin C, potassium and vitamin K. They also provide some B vitamins (19).
+
+      Studies suggest that the antioxidants in apples can promote heart health and reduce the risk of type 2 diabetes, cancer and Alzheimer’s (20Trusted Source, 21Trusted Source, 22Trusted Source, 23Trusted Source).
+
+      The antioxidant activity in apples has also been linked with increased bone density in animal and test-tube studies (24Trusted Source).
+
+      Another notable health benefit of apples is their pectin content.
+
+      Pectin is a prebiotic fiber that feeds the good bacteria in your gut and helps improve digestion and metabolic health (25Trusted Source, 26Trusted Source).
+    </p>
+    <h1 class="mt-45 mb-15">Pomegranate</h1>
+    <p class="lht">
+      Pomegranates are among the healthiest fruits you can eat.
+
+      Not only are they nutrient dense, they also contain powerful plant compounds that are responsible for most of their health benefits.
+
+      The antioxidant levels in pomegranate have been shown to be three times higher than those of green tea and red wine (27Trusted Source).
+
+      Studies have also shown that pomegranates have anti-inflammatory effects and may help reduce the risk of cancer (28Trusted Source, 29Trusted Source, 30Trusted Source).
+    </p>
+    <h1 class="mt-45 mb-15">Strawberries</h1>
+    <p class="lht">
+      Strawberries are highly nutritious.
+
+      Their vitamin C, manganese, folate and potassium contents are where they really shine (34).
+
+      Compared to other fruits, strawberries have a relatively low glycemic index. Eating them shouldn’t cause a big blood sugar spike (35, 36Trusted Source).
+
+      Similarly to other berries, strawberries have a high antioxidant capacity, which may reduce your risk of chronic disease (37Trusted Source).
+
+      Animal and test-tube studies have found that strawberries may also help prevent cancer and tumor formation (38Trusted Source, 39Trusted Source).
+    </p>
+  </section>
+
+  <table width="100%" class="mt-30 tb">
+    <thead>
+      <th width="33%">Image</th>
+      <th width="33%">Fruit type</th>
+      <th width="33%">Price</th>
+    </thead>
+    <tr v-if="list.length === 0">
+      <td colspan="3">No api auth, Login first!</td>
+    </tr>
+    <tr v-for="item in list">
+      <td><img :src="`./img/${item.name}.jpg`" class="uni-size"></td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.price }}</td>
+    </tr>
+  </table>
+  <img src="./img/footer.png" alt="">
+</div>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      authUser: null,
+      username: '',
+      password: '',
+      list: [
+        {
+          name: 'Apple',
+          price: '$1',
+        },
+        {
+          name: 'Banana',
+          price: '$1',
+        },
+        {
+          name: 'Cherry',
+          price: '$1',
+        },
+        {
+          name: 'Pomegranate',
+          price: '$1',
+        },
+        {
+          name: 'Strawberry',
+          price: '$1',
+        },
+        {
+          name: 'Watermelon',
+          price: '$1',
+        },
+      ],
+    },
+    mounted() {
+      let u;
+      if (u = localStorage.getItem('auth')) {
+        this.authUser = JSON.parse(u);
+        this.getList();
+      }
+    },
+    methods: {
+      getList() {
+        $.get('fruit', (data) => {
+          this.list = data;
+        })
+        .error((e) => {
+          console.log(e);
+          alert(e.statusText)
+        })
+      },
+      login() {
+        const data = {
+          username: this.username,
+          password: this.password,
+        };
+
+        $.ajax({
+          url:'/login',
+          type: 'post',
+          data: JSON.stringify(data),
+          contentType:'application/json',
+          dataType:'json',
+          success:(data) => {
+            localStorage.setItem('auth', JSON.stringify(data.data))
+            this.authUser = data.data;
+            this.getList();
+            this.username = '';
+            this.password = '';
+          },
+          error: (e) => {
+            console.log(e);
+            alert(e.responseJSON.msg)
+          }
+        });
+      }
+    }
+  })
+</script>
+</body>
+</html>

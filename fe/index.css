@@ -1,0 +1,113 @@
+html, body, p, div, h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+  font-family: cursive;
+}
+
+#app {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.uni-size {
+  width: 132px;
+  height: 140px;
+}
+
+table th {
+  border: 1px solid #ebeef5
+}
+
+table td {
+  border: 1px solid #ebeef5
+}
+
+table tr td {
+  text-align: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.abs {
+  position: absolute;
+}
+
+.title {
+  color: whitesmoke;
+  top: 50%;
+  left: 50%;
+  margin-left: -151px;
+  margin-top: -21px;
+}
+
+.lht {
+  line-height: 30px;
+}
+
+.mt-45 {
+  margin-top: 45px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.tb {
+  background-color: #F8F8F8;
+}
+
+.input-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+input[type="text"], input[type="password"] {
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1.4em;
+  height: 1.7em;
+  border-radius: 4px;
+  border: 1px solid #c8cccf;
+  color: #6a6f77;
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  outline: 0;
+  padding: 0 1em;
+  text-decoration: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border: 1px solid #ff7496;
+}
+
+.btn{
+  background-color:gray; /* Green */
+  border: none;
+  padding: 8px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 5%;
+}
+
+.btn-lan{
+  background: #5897F8;
+  color: white;
+}
+
+.clear {
+ overflow: hidden;
+  background-color: #91B6A7;
+}
+
+.fr {
+  float: right;
+  color: white;
+}
